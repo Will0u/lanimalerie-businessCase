@@ -63,7 +63,7 @@ symfony console hautelook:fixtures:load --purge-with-truncate
 ```
 
 ### Setting-up the JWT Keys <a name="setupJk"></a>
-You will need Openssl , if you don't have it you can download it [here](https://slproweb.com/products/Win32OpenSSL.html). These keys will allow you to have access to the API.
+You will need Openssl , if you don't have it you can download it [here](https://slproweb.com/products/Win32OpenSSL.html). These keys will allow you to have a token access to the API.
 
 You will have to create a folder called **jwt** in the config folder :
 ```
