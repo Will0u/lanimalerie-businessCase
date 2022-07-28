@@ -8,5 +8,5 @@ App\Entity\Product:
     price_ht : '<numberBetween(0,50)>.<numberBetween(0,99)>'
     tva: '0.2'
     brand: '@brand*'
-    category: '@mainCateg*'
+    category: '@secCateg*'
 
