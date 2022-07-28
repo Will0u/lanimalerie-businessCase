@@ -9,24 +9,20 @@ use ApiPlatform\Core\Annotation\ApiResource;
 
 #[ORM\Entity(repositoryClass: InsideShoppingCartRepository::class)]
 #[ApiResource(
-    attributes: ["security" => "is_granted('ROLE_STAT')"],
+    attributes: ["security" => "is_granted('ROLE_ADMIN')"],
     collectionOperations: [
-        "get",
-        "post" => [
-            "security" => "is_granted('ROLE_ADMIN')"
-        ]
+        "get" => [
+            "security" => "is_granted('ROLE_STATS')"
+        ],
+        "post"
     ],
     itemOperations: [
-        "get",
-        "put" => [
-            "security" => "is_granted('ROLE_ADMIN')"
+        "get" => [
+            "security" => "is_granted('ROLE_STATS')"
         ],
-        "delete" => [
-            "security" => "is_granted('ROLE_ADMIN')"
-        ],
-        "patch" => [
-            "security" => "is_granted('ROLE_ADMIN')"
-        ]
+        "put",
+        "delete",
+        "patch"
     ],
 )]
 class InsideShoppingCart

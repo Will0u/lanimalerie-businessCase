@@ -34,8 +34,8 @@ class Address
     #[Assert\Length(
         min: 2,
         max: 10,
-        minMessage: '{{label}} doit faire plus de {{limit}} caractères.',
-        maxMessage: '{{label}} doit faire moins de {{limit}} caractères.',
+        minMessage: 'Le code postal doit faire plus de {{ limit }} caractères.',
+        maxMessage: 'Le code postal doit faire moins de {{ limit }} caractères.',
     )]
     private ?string $zipCode = null;
 
@@ -43,8 +43,8 @@ class Address
     #[Assert\Length(
         min: 4,
         max: 80,
-        minMessage: '{{label}} doit faire plus de {{limit}} caractères.',
-        maxMessage: '{{label}} doit faire moins de {{limit}} caractères.',
+        minMessage: 'Le nom du pays doit faire plus de {{ limit }} caractères.',
+        maxMessage: 'Le nom du pays doit faire moins de {{ limit }} caractères.',
     )]
     private ?string $country = null;
 
@@ -52,8 +52,8 @@ class Address
     #[Assert\Length(
         min: 2,
         max: 50,
-        minMessage: '{{label}} doit faire plus de {{limit}} caractères.',
-        maxMessage: '{{label}} doit faire moins de {{limit}} caractères.',
+        minMessage: 'Le nom de la ville doit faire plus de {{ limit }} caractères.',
+        maxMessage: 'Le nom de la ville doit faire moins de {{ limit }} caractères.',
     )]
     private ?string $city = null;
 
@@ -61,22 +61,22 @@ class Address
     #[Assert\Length(
         min: 2,
         max: 255,
-        minMessage: '{{label}} doit faire plus de {{limit}} caractères.',
-        maxMessage: '{{label}} doit faire moins de {{limit}} caractères.',
+        minMessage: 'L\'adresse doit faire plus de {{ limit }} caractères.',
+        maxMessage: 'L\'adresse doit faire moins de {{ limit }} caractères.',
     )]
     private ?string $row1 = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     #[Assert\Length(
         max: 255,
-        maxMessage: '{{label}} doit faire moins de {{limit}} caractères.',
+        maxMessage: 'doit faire moins de {{ limit }} caractères.',
     )]
     private ?string $row2 = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     #[Assert\Length(
         max: 255,
-        maxMessage: '{{label}} doit faire moins de {{limit}} caractères.',
+        maxMessage: 'doit faire moins de {{ limit }} caractères.',
     )]
     private ?string $row3 = null;
 

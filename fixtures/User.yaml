@@ -1,7 +1,9 @@
 parameters:
     password: '$2y$13$srgCx87nZoD1tK6VbkQwo.4B5ERDQbYfAGjXpw1ohJ3fEbPDYCK7K' # test
     
-    adminpassword: '$2y$13$mv3Vn.Go1a6Gq/5lDVj2mOZ3Ly5bHY3yqfHDR3pd5wA2PV4CWrAgC' # admin
+    adminPassword: '$2y$13$mv3Vn.Go1a6Gq/5lDVj2mOZ3Ly5bHY3yqfHDR3pd5wA2PV4CWrAgC' # admin
+
+    capardPassword: '$2y$13$LSUX8yis23TbRWazwaQchedt6qPdByWu4MGgd4FIijlUfq2cSSE3q' # capard
 
 App\Entity\User:
   customer (template):
@@ -15,6 +17,16 @@ App\Entity\User:
 
   customer{0..500} (extends customer): ~
 
-  admin (extends customer) :
+  superAdmin (extends customer) :
     email: 'admin@mail.com'
-    password: '<{adminpassword}>'
+    password: '<{adminPassword}>'
+    roles: '[ROLE_SUPER_ADMIN]'
+
+  capardStatsUser (extends customer):
+    email: 'capard@mail.com'
+    password: '<{capardPassword}>'
+    roles: '[ROLE_STATS]'
+
+  patrickUser (extends customer):
+    email: 'patrick@mail.com'
+    password: '<{password}>'
