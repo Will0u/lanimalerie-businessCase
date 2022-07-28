@@ -1,21 +1,23 @@
 # La Nîmes'alerie
-La Nîmes'alerie is an e-commerce website using Symfony, TypeScript, SCSS for my web developper training.
+La Nîmes'alerie is an e-commerce website using Symfony for my web developper training.
 
 This is a fictional project using fakes informations. All datas you can find in this project are not real.
 
 
 # Table of contents
-1. [Getting Started](#start)
-    1. [Prerequisites](#prerequisites)
-    2. [Installation](#installation)
-        1. [Setting-up the database](#setupdb)
-        2. [Setting-up the JWT Keys](#setupJk)
+* [Getting Started](#start)
+    * [Prerequisites](#prerequisites)
+    * [Installation](#installation)
+        * [Setting-up the database](#setupdb)
+        * [Setting-up the JWT Keys](#setupJk)
+    * [API](#api)
+        * [Access token](#apiToken)
 
 
 # Getting Started <a name="start"></a>
 
 ## Prerequisites <a name="prerequisites"></a>
-This project requires **Symfony** (5.4.12) , **openssl** (to generate public / private keys).
+This project requires **Symfony** (5.4.12) , **Openssl** (to generate public & private keys).
 
 
 ## Installation <a name="installation"></a>
@@ -79,6 +81,13 @@ Generate the keys by doing this command in a terminal :
 symfony console lexik:jwt:generate-keypair
 ```
 
+## Access to the API <a name="api"></a>
+Once the keys generated, you can start the project by using the `symfony serve` command in a terminal and go at this link : **localhost:8000/api/docs** OR another link according to your configuration.
+
+### Access token <a name="apiToken"></a>
+2 ways to have an access token :
+* In **localhost:8000/api/docs** go to the **Token** section, then click on **try it out** and write valid email and password.
+* In an API testing tool (as Postman), do a **POST** request on **localhost:8000/authentication_token** with valid email and password.
 
 
 
