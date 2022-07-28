@@ -84,6 +84,15 @@ symfony console lexik:jwt:generate-keypair
 ## Access to the API <a name="api"></a>
 Once the keys generated, you can start the project by using the `symfony serve` command in a terminal and go at this link : **localhost:8000/api/docs** OR another link according to your configuration.
 
+> **Warning**  : 
+> You might do `symfony composer install` again if you have a blank page :
+>
+> if you started `symfony serve`, then CTRL C to abort it
+>
+> do `symfony composer install`
+> 
+>  now you can do `symfony serve` again and you will be able to see the API
+
 ### Access token <a name="apiToken"></a>
 2 ways to have an access token :
 * In **localhost:8000/api/docs** go to the **Token** section, then click on **try it out** and write valid email and password.
