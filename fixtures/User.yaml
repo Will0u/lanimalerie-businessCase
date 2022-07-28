@@ -4,7 +4,7 @@ parameters:
     adminpassword: '$2y$13$mv3Vn.Go1a6Gq/5lDVj2mOZ3Ly5bHY3yqfHDR3pd5wA2PV4CWrAgC' # admin
 
 App\Entity\User:
-  customer{0..500}:
+  customer (template):
     email: '<email()>'
     roles: '[]'
     password: '<{password}>'
@@ -12,3 +12,9 @@ App\Entity\User:
     last_name: '<lastName()>'
     created_at: '<dateTimeBetween("-22 years" , "now")>'
     birth_at: '<dateTimeBetween("-80 years" , "now -18 years")>'
+
+  customer{0..500} (extends customer): ~
+
+  admin (extends customer) :
+    email: 'admin@mail.com'
+    password: '<{adminpassword}>'
