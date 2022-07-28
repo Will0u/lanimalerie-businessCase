@@ -85,7 +85,7 @@ symfony console lexik:jwt:generate-keypair
 Once the keys generated, you can start the project by using the `symfony serve` command in a terminal and go at this link : **localhost:8000/api/docs** OR another link according to your configuration.
 
 > **Warning**  : 
-> You might do `symfony composer install` again if you have a blank page :
+> if you have a blank page, you must do `symfony composer install` again to avoid this issue :
 >
 > if you started `symfony serve`, then CTRL+C to abort it
 >
