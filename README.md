@@ -1,5 +1,5 @@
 # La Nîmes'alerie
-La Nîmes'alerie is an e-commerce website using Symfony, TypeScript, SCSS for my web developper training.
+La Nîmes'alerie is an e-commerce website using Symfony for my web developper training.
 
 This is a fictional project using fakes informations. All datas you can find in this project are not real.
 
