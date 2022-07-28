@@ -20,6 +20,10 @@ class Bill
     #[ORM\Column(type: Types::TEXT)]
     private ?string $billCopy = null;
 
+    #[ORM\ManyToOne(inversedBy: 'bills')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?ShoppingCart $shoppingCart = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -45,6 +49,18 @@ class Bill
     public function setBillCopy(string $billCopy): self
     {
         $this->billCopy = $billCopy;
+
+        return $this;
+    }
+
+    public function getShoppingCart(): ?ShoppingCart
+    {
+        return $this->shoppingCart;
+    }
+
+    public function setShoppingCart(?ShoppingCart $shoppingCart): self
+    {
+        $this->shoppingCart = $shoppingCart;
 
         return $this;
     }

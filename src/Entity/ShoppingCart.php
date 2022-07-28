@@ -35,9 +35,13 @@ class ShoppingCart
     #[ORM\OneToMany(mappedBy: 'shoppingCart', targetEntity: InsideShoppingCart::class)]
     private Collection $insideShoppingCarts;
 
+    #[ORM\OneToMany(mappedBy: 'shoppingCart', targetEntity: Bill::class)]
+    private Collection $bills;
+
     public function __construct()
     {
         $this->insideShoppingCarts = new ArrayCollection();
+        $this->bills = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -117,6 +121,36 @@ class ShoppingCart
             // set the owning side to null (unless already changed)
             if ($insideShoppingCart->getShoppingCart() === $this) {
                 $insideShoppingCart->setShoppingCart(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Bill>
+     */
+    public function getBills(): Collection
+    {
+        return $this->bills;
+    }
+
+    public function addBill(Bill $bill): self
+    {
+        if (!$this->bills->contains($bill)) {
+            $this->bills->add($bill);
+            $bill->setShoppingCart($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBill(Bill $bill): self
+    {
+        if ($this->bills->removeElement($bill)) {
+            // set the owning side to null (unless already changed)
+            if ($bill->getShoppingCart() === $this) {
+                $bill->setShoppingCart(null);
             }
         }
 
