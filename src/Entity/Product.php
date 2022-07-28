@@ -7,6 +7,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use ApiPlatform\Core\Annotation\ApiResource;
 
 #[ORM\Entity(repositoryClass: ProductRepository::class)]
 class Product
@@ -17,32 +19,72 @@ class Product
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\Length(
+        min: 2,
+        max: 255,
+        minMessage: '{{label}} doit faire plus de {{limit}} caractères.',
+        maxMessage: '{{label}} doit faire moins de {{limit}} caractères.',
+    )]
     private ?string $imageUrl = null;
 
     #[ORM\Column(length: 80)]
+    #[Assert\Length(
+        min: 2,
+        max: 80,
+        minMessage: '{{label}} doit faire plus de {{limit}} caractères.',
+        maxMessage: '{{label}} doit faire moins de {{limit}} caractères.',
+    )]
     private ?string $name = null;
 
     #[ORM\Column]
+    #[Assert\Range(
+        min: 0,
+        max: 1,
+        notInRangeMessage: 'Doit être un booléen : 1 ou 0.',
+    )]
     private ?bool $isAvailable = null;
 
     #[ORM\Column(type: Types::DECIMAL, precision: 8, scale: 2)]
+    #[Assert\Range(
+        min: 0,
+        max: 999999.99,
+        notInRangeMessage: '{{label}} doit être entre {{min}} et {{max}}€.',
+    )]
     private ?string $priceHt = null;
 
     #[ORM\Column(type: Types::DECIMAL, precision: 3, scale: 2)]
+    #[Assert\Range(
+        min: 0,
+        max: 1,
+        notInRangeMessage: '{{label}} doit être entre {{min}} et {{max}} de tva.',
+    )]
     private ?string $tva = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Assert\Length(
+        max: 500,
+        maxMessage: '{{label}} doit faire moins de {{limit}} caractères.',
+    )]
     private ?string $description = null;
 
     #[ORM\Column]
+    #[Assert\NotBlank(
+        message : '{{ label }} ne peut pas être vide.'
+    )]
     private ?int $quantity = null;
 
     #[ORM\ManyToOne(inversedBy: 'products')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Assert\NotBlank(
+        message : '{{ label }} ne peut pas être vide.'
+    )]
     private ?Brand $brand = null;
 
     #[ORM\ManyToOne(inversedBy: 'products')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Assert\NotBlank(
+        message : '{{ label }} ne peut pas être vide.'
+    )]
     private ?Category $category = null;
 
     #[ORM\OneToMany(mappedBy: 'product', targetEntity: InsideShoppingCart::class)]

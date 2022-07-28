@@ -3,9 +3,9 @@
 namespace App\Entity;
 
 use App\Repository\InsideShoppingCartRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use ApiPlatform\Core\Annotation\ApiResource;
 
 #[ORM\Entity(repositoryClass: InsideShoppingCartRepository::class)]
 class InsideShoppingCart
@@ -16,14 +16,23 @@ class InsideShoppingCart
     private ?int $id = null;
 
     #[ORM\Column]
+    #[Assert\NotBlank(
+        message : '{{ label }} ne peut pas être vide.'
+    )]
     private ?int $quantity = null;
 
     #[ORM\ManyToOne(inversedBy: 'insideShoppingCarts')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Assert\NotBlank(
+        message : '{{ label }} ne peut pas être vide.'
+    )]
     private ?Product $product = null;
 
     #[ORM\ManyToOne(inversedBy: 'insideShoppingCarts')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Assert\NotBlank(
+        message : '{{ label }} ne peut pas être vide.'
+    )]
     private ?ShoppingCart $shoppingCart = null;
 
 

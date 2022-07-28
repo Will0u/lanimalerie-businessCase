@@ -8,6 +8,9 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
+use Symfony\Component\Validator\Constraints as Assert;
+use ApiPlatform\Core\Annotation\ApiResource;
+
 #[ORM\Entity(repositoryClass: ReviewRepository::class)]
 class Review
 {
@@ -17,12 +20,25 @@ class Review
     private ?int $id = null;
 
     #[ORM\Column]
+    #[Assert\Range(
+        min: 0,
+        max: 5,
+        notInRangeMessage: '{{label}} doit être entre {{min}} et {{max}}.',
+    )]
     private ?int $mark = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Assert\Length(
+        max: 500,
+        maxMessage: '{{label}} doit faire moins de {{limit}} caractères.',
+    )]
     private ?string $comment = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[Assert\NotBlank(
+        message : '{{ label }} ne peut pas être vide.'
+    )]
+    #[Assert\LessThan('now')]
     private ?\DateTimeInterface $wroteAt = null;
 
     #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'review')]

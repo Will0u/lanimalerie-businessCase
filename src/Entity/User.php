@@ -9,6 +9,8 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
+use ApiPlatform\Core\Annotation\ApiResource;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
@@ -19,6 +21,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $id = null;
 
     #[ORM\Column(length: 180, unique: true)]
+    #[Assert\Length(
+        min: 2,
+        max: 180,
+        minMessage: '{{label}} doit faire plus de {{limit}} caractères.',
+        maxMessage: '{{label}} doit faire moins de {{limit}} caractères.',
+    )]
+    #[Assert\Email(
+        message: '{{label}} : {{ value }} invalide.',
+    )]
     private ?string $email = null;
 
     #[ORM\Column]
@@ -31,15 +42,35 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $password = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[Assert\NotBlank(
+        message : '{{ label }} ne peut pas être vide.'
+    )]
+    #[Assert\LessThan('-18 years')]
     private ?\DateTimeInterface $birthAt = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[Assert\NotBlank(
+        message : '{{ label }} ne peut pas être vide.'
+    )]
+    #[Assert\LessThan('now')]
     private ?\DateTimeInterface $createdAt = null;
 
     #[ORM\Column(length: 80)]
+    #[Assert\Length(
+        min: 2,
+        max: 80,
+        minMessage: '{{label}} doit faire plus de {{limit}} caractères.',
+        maxMessage: '{{label}} doit faire moins de {{limit}} caractères.',
+    )]
     private ?string $firstName = null;
 
     #[ORM\Column(length: 80)]
+    #[Assert\Length(
+        min: 2,
+        max: 80,
+        minMessage: '{{label}} doit faire plus de {{limit}} caractères.',
+        maxMessage: '{{label}} doit faire moins de {{limit}} caractères.',
+    )]
     private ?string $lastName = null;
 
 

@@ -6,6 +6,8 @@ use App\Repository\CategoryRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use ApiPlatform\Core\Annotation\ApiResource;
 
 #[ORM\Entity(repositoryClass: CategoryRepository::class)]
 class Category
@@ -16,9 +18,19 @@ class Category
     private ?int $id = null;
 
     #[ORM\Column(length: 80)]
+    #[Assert\Length(
+        min: 2,
+        max: 80,
+        minMessage: '{{label}} doit faire plus de {{limit}} caractères.',
+        maxMessage: '{{label}} doit faire moins de {{limit}} caractères.',
+    )]
     private ?string $category = null;
 
     #[ORM\ManyToOne(targetEntity: self::class)]
+    #[Assert\Length(
+        max: 80,
+        maxMessage: '{{label}} doit faire moins de {{limit}} caractères.',
+    )]
     private ?self $subCategory = null;
 
     #[ORM\OneToMany(mappedBy: 'category', targetEntity: Product::class)]

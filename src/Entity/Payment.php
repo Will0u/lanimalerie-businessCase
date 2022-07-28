@@ -6,6 +6,8 @@ use App\Repository\PaymentRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use ApiPlatform\Core\Annotation\ApiResource;
 
 #[ORM\Entity(repositoryClass: PaymentRepository::class)]
 class Payment
@@ -16,6 +18,12 @@ class Payment
     private ?int $id = null;
 
     #[ORM\Column(length: 50)]
+    #[Assert\Length(
+        min: 2,
+        max: 50,
+        minMessage: '{{label}} doit faire plus de {{limit}} caractères.',
+        maxMessage: '{{label}} doit faire moins de {{limit}} caractères.',
+    )]
     private ?string $label = null;
 
     #[ORM\OneToMany(mappedBy: 'payment', targetEntity: ShoppingCart::class)]

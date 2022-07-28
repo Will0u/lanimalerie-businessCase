@@ -7,6 +7,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use ApiPlatform\Core\Annotation\ApiResource;
 
 #[ORM\Entity(repositoryClass: ShoppingCartRepository::class)]
 class ShoppingCart
@@ -17,19 +19,32 @@ class ShoppingCart
     private ?int $id = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[Assert\NotBlank(
+        message : '{{ label }} ne peut pas être vide.'
+    )]
+    #[Assert\LessThan('now')]
     private ?\DateTimeInterface $createdAt = null;
 
     #[ORM\ManyToOne(inversedBy: 'shoppingCart')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Assert\NotBlank(
+        message : '{{ label }} ne peut pas être vide.'
+    )]
     private ?User $user = null;
 
 
     #[ORM\ManyToOne(inversedBy: 'shoppingCarts')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Assert\NotBlank(
+        message : '{{ label }} ne peut pas être vide.'
+    )]
     private ?Status $status = null;
 
     #[ORM\ManyToOne(inversedBy: 'shoppingCarts')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Assert\NotBlank(
+        message : '{{ label }} ne peut pas être vide.'
+    )]
     private ?Payment $payment = null;
 
     #[ORM\OneToMany(mappedBy: 'shoppingCart', targetEntity: InsideShoppingCart::class)]

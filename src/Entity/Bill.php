@@ -5,6 +5,8 @@ namespace App\Entity;
 use App\Repository\BillRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use ApiPlatform\Core\Annotation\ApiResource;
 
 #[ORM\Entity(repositoryClass: BillRepository::class)]
 class Bill
@@ -15,13 +17,23 @@ class Bill
     private ?int $id = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[Assert\NotBlank(
+        message : '{{ label }} ne peut pas être vide.'
+    )]
+    #[Assert\LessThan('now')]
     private ?\DateTimeInterface $paidAt = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Assert\NotBlank(
+        message : '{{ label }} ne peut pas être vide.'
+    )]
     private ?string $billCopy = null;
 
     #[ORM\ManyToOne(inversedBy: 'bills')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Assert\NotBlank(
+        message : '{{ label }} ne peut pas être vide.'
+    )]
     private ?ShoppingCart $shoppingCart = null;
 
     public function getId(): ?int
