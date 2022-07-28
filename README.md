@@ -17,7 +17,7 @@ This is a fictional project using fakes informations. All datas you can find in 
 # Getting Started <a name="start"></a>
 
 ## Prerequisites <a name="prerequisites"></a>
-This project requires **Symfony** (5.4.12) , **openssl** (to generate public / private keys).
+This project requires **Symfony** (5.4.12) , **Openssl** (to generate public & private keys).
 
 
 ## Installation <a name="installation"></a>
