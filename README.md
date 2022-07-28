@@ -87,7 +87,7 @@ Once the keys generated, you can start the project by using the `symfony serve` 
 > **Warning**  : 
 > You might do `symfony composer install` again if you have a blank page :
 >
-> if you started `symfony serve`, then CTRL C to abort it
+> if you started `symfony serve`, then CTRL+C to abort it
 >
 > do `symfony composer install`
 > 
