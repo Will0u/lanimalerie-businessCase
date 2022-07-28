@@ -16,3 +16,7 @@ App\Entity\Category:
 
   mainCateg6:
     category: 'Rongeurs'
+
+  mainCateg7:
+    category: 'Alimentation'
+    subCategory : '@mainCateg5'

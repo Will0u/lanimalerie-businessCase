@@ -1,0 +1,7 @@
+App\Entity\ShoppingCart:
+    shoppingCart{0..200}:
+      createdAt: '<dateTimeBetween("-15 years" , "now")>'
+      user: '@customer*'
+      status: '@status*' 
+      payment: '@payment*'
+      

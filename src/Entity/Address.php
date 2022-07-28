@@ -36,6 +36,7 @@ class Address
     #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'address')]
     private Collection $users;
 
+
     public function __construct()
     {
         $this->users = new ArrayCollection();
@@ -144,4 +145,5 @@ class Address
 
         return $this;
     }
+
 }

@@ -1,5 +1,5 @@
 App\Entity\Product:
-  product{0..6573}:
+  product{0..5000}:
     image_url: 'image'
     name: 'croquette'
     description: '<sentence(60)>'

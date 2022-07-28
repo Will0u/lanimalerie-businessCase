@@ -1,0 +1,5 @@
+App\Entity\InsideShoppingCart:
+    insideShoppingCart{0..500}:
+      product: '@product*'
+      quantity : '<numberBetween(1,5)>'
+      shoppingCart: '@shoppingCart*'

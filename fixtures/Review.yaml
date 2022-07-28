@@ -1,0 +1,6 @@
+App\Entity\Review:
+  review{0..600}:
+    mark: '<numberBetween(0,5)>'
+    comment: '<sentence(150)>'
+    wroteAt: '<dateTimeBetween("-10 years" , "now")>'
+    users: '[@customer*]'

@@ -42,8 +42,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 80)]
     private ?string $lastName = null;
 
-    #[ORM\ManyToMany(targetEntity: Address::class, inversedBy: 'users')]
-    private Collection $address;
 
     #[ORM\ManyToMany(targetEntity: Review::class, inversedBy: 'users')]
     private Collection $review;
@@ -51,11 +49,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: ShoppingCart::class)]
     private Collection $shoppingCart;
 
+    #[ORM\ManyToMany(targetEntity: Address::class, inversedBy: 'users')]
+    private Collection $address;
+
+
     public function __construct()
     {
-        $this->address = new ArrayCollection();
         $this->review = new ArrayCollection();
         $this->shoppingCart = new ArrayCollection();
+        $this->address = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -175,30 +177,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
-
-    /**
-     * @return Collection<int, Address>
-     */
-    public function getAddress(): Collection
-    {
-        return $this->address;
-    }
-
-    public function addAddress(Address $address): self
-    {
-        if (!$this->address->contains($address)) {
-            $this->address->add($address);
-        }
-
-        return $this;
-    }
-
-    public function removeAddress(Address $address): self
-    {
-        $this->address->removeElement($address);
-
-        return $this;
-    }
+    
 
     /**
      * @return Collection<int, Review>
@@ -253,4 +232,29 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+    /**
+     * @return Collection<int, Address>
+     */
+    public function getAddress(): Collection
+    {
+        return $this->address;
+    }
+
+    public function addAddress(Address $address): self
+    {
+        if (!$this->address->contains($address)) {
+            $this->address->add($address);
+        }
+
+        return $this;
+    }
+
+    public function removeAddress(Address $address): self
+    {
+        $this->address->removeElement($address);
+
+        return $this;
+    }
+
 }

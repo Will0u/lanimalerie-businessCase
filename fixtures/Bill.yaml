@@ -1,0 +1,5 @@
+App\Entity\Bill:
+  bill{0..150}:
+    paidAt: '<dateTimeBetween("-14 days" , "now")>'
+    billCopy: 'copy'
+    shoppingCart: '@shoppingCart*'
