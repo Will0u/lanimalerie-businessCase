@@ -52,6 +52,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @var string The hashed password
      */
     #[ORM\Column]
+    #[Assert\Length(
+        min: 4,
+        max: 30,
+        minMessage: 'Le mot de passe doit faire plus de {{limit}} caractères.',
+        maxMessage: 'Le mot de passe doit faire moins de {{limit}} caractères.',
+    )]
     private ?string $password = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
