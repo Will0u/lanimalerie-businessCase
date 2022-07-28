@@ -11,6 +11,27 @@ use Symfony\Component\Validator\Constraints as Assert;
 use ApiPlatform\Core\Annotation\ApiResource;
 
 #[ORM\Entity(repositoryClass: ShoppingCartRepository::class)]
+#[ApiResource(
+    attributes: ["security" => "is_granted('ROLE_STAT')"],
+    collectionOperations: [
+        "get",
+        "post" => [
+            "security" => "is_granted('ROLE_ADMIN')"
+        ]
+    ],
+    itemOperations: [
+        "get",
+        "put" => [
+            "security" => "is_granted('ROLE_ADMIN')"
+        ],
+        "delete" => [
+            "security" => "is_granted('ROLE_ADMIN')"
+        ],
+        "patch" => [
+            "security" => "is_granted('ROLE_ADMIN')"
+        ]
+    ],
+)]
 class ShoppingCart
 {
     #[ORM\Id]

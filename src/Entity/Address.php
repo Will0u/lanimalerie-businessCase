@@ -11,24 +11,16 @@ use ApiPlatform\Core\Annotation\ApiResource;
 
 #[ORM\Entity(repositoryClass: AddressRepository::class)]
 #[ApiResource(
-    attributes: ["security" => "is_granted('ROLE_STAT')"],
+    attributes: ["security" => "is_granted('ROLE_ADMIN')"],
     collectionOperations: [
         "get",
-        "post" => [
-            "security" => "is_granted('ROLE_ADMIN')"
-        ]
+        "post",
     ],
     itemOperations: [
         "get",
-        "put" => [
-            "security" => "is_granted('ROLE_ADMIN')"
-        ],
-        "delete" => [
-            "security" => "is_granted('ROLE_ADMIN')"
-        ],
-        "patch" => [
-            "security" => "is_granted('ROLE_ADMIN')"
-        ]
+        "put",
+        "delete",
+        "patch"
     ],
 )]
 class Address

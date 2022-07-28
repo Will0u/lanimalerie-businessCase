@@ -13,6 +13,19 @@ use Symfony\Component\Validator\Constraints as Assert;
 use ApiPlatform\Core\Annotation\ApiResource;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
+#[ApiResource(
+    attributes: ["security" => "is_granted('ROLE_ADMIN')"],
+    collectionOperations: [
+        "get",
+        "post",
+    ],
+    itemOperations: [
+        "get",
+        "put",
+        "delete",
+        "patch"
+    ],
+)]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]

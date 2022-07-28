@@ -10,6 +10,19 @@ use Symfony\Component\Validator\Constraints as Assert;
 use ApiPlatform\Core\Annotation\ApiResource;
 
 #[ORM\Entity(repositoryClass: StatusRepository::class)]
+#[ApiResource(
+    attributes: ["security" => "is_granted('ROLE_ADMIN')"],
+    collectionOperations: [
+        "get",
+        "post",
+    ],
+    itemOperations: [
+        "get",
+        "put",
+        "delete",
+        "patch"
+    ],
+)]
 class Status
 {
     #[ORM\Id]
