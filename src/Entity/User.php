@@ -58,7 +58,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Assert\NotBlank(
         message : '{{ label }} ne peut pas être vide.'
     )]
-    #[Assert\LessThan('-18 years')]
+    #[Assert\LessThan(
+        '-18 years' , 
+        message: 'Vous devez avoir plus de 18 ans.'
+    )]
     private ?\DateTimeInterface $birthAt = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
