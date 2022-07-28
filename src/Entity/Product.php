@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ProductRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -34,6 +36,22 @@ class Product
 
     #[ORM\Column]
     private ?int $quantity = null;
+
+    #[ORM\ManyToOne(inversedBy: 'products')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Brand $brand = null;
+
+    #[ORM\ManyToOne(inversedBy: 'products')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Category $category = null;
+
+    #[ORM\OneToMany(mappedBy: 'product', targetEntity: InsideShoppingCart::class)]
+    private Collection $insideShoppingCarts;
+
+    public function __construct()
+    {
+        $this->insideShoppingCarts = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -120,6 +138,60 @@ class Product
     public function setQuantity(int $quantity): self
     {
         $this->quantity = $quantity;
+
+        return $this;
+    }
+
+    public function getBrand(): ?Brand
+    {
+        return $this->brand;
+    }
+
+    public function setBrand(?Brand $brand): self
+    {
+        $this->brand = $brand;
+
+        return $this;
+    }
+
+    public function getCategory(): ?Category
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?Category $category): self
+    {
+        $this->category = $category;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, InsideShoppingCart>
+     */
+    public function getInsideShoppingCarts(): Collection
+    {
+        return $this->insideShoppingCarts;
+    }
+
+    public function addInsideShoppingCart(InsideShoppingCart $insideShoppingCart): self
+    {
+        if (!$this->insideShoppingCarts->contains($insideShoppingCart)) {
+            $this->insideShoppingCarts->add($insideShoppingCart);
+            $insideShoppingCart->setProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeInsideShoppingCart(InsideShoppingCart $insideShoppingCart): self
+    {
+        if ($this->insideShoppingCarts->removeElement($insideShoppingCart)) {
+            // set the owning side to null (unless already changed)
+            if ($insideShoppingCart->getProduct() === $this) {
+                $insideShoppingCart->setProduct(null);
+            }
+        }
 
         return $this;
     }
