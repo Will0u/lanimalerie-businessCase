@@ -1,0 +1,6 @@
+App\Entity\Address:
+  address{0..650}:
+    zip_code: '<numberBetween(1,9999)>'
+    city: '<city()>'
+    row1: '36 Rue du Sah'
+    country: 'France'

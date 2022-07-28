@@ -1,0 +1,15 @@
+App\Entity\Status:
+  successful:
+    label: 'Validé'
+  
+  failed:
+    label: 'Échoué'
+  
+  standby:
+    label: 'En attente de validation'
+  
+  aborted:
+    label: 'Annulé'
+
+  waitingForPayment:
+    label: 'En attente de paiement'

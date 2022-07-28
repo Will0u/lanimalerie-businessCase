@@ -1,0 +1,18 @@
+App\Entity\Category:
+  mainCateg1:
+    category: 'Chiens'
+  
+  mainCateg2:
+    category: 'Chats'
+  
+  mainCateg3:
+    category: 'Reptiles'
+  
+  mainCateg4:
+    category: 'Oiseaux'
+
+  mainCateg5:
+    category: 'Poissons'
+
+  mainCateg6:
+    category: 'Rongeurs'

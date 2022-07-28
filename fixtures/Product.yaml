@@ -1,0 +1,12 @@
+App\Entity\Product:
+  product{0..6573}:
+    image_url: 'image'
+    name: 'croquette'
+    description: '<sentence(60)>'
+    quantity: '<numberBetween(0,99)>'
+    is_available: '<numberBetween(0,1)>'
+    price_ht : '<numberBetween(0,50)>.<numberBetween(0,99)>'
+    tva: '0.2'
+    brand: '@brand*'
+    category: '@mainCateg*'
+

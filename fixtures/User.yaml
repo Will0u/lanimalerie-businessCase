@@ -1,0 +1,14 @@
+parameters:
+    password: '$2y$13$srgCx87nZoD1tK6VbkQwo.4B5ERDQbYfAGjXpw1ohJ3fEbPDYCK7K' # test
+    
+    adminpassword: '$2y$13$mv3Vn.Go1a6Gq/5lDVj2mOZ3Ly5bHY3yqfHDR3pd5wA2PV4CWrAgC' # admin
+
+App\Entity\User:
+  customer{0..500}:
+    email: '<email()>'
+    roles: '[]'
+    password: '<{password}>'
+    first_name: '<firstName()>'
+    last_name: '<lastName()>'
+    created_at: '<dateTimeBetween("-22 years" , "now")>'
+    birth_at: '<dateTimeBetween("-80 years" , "now -18 years")>'

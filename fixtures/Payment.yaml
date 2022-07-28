@@ -1,0 +1,9 @@
+App\Entity\Payment:
+  card:
+    label: 'CB'
+  
+  paypal:
+    label: 'Paypal'
+  
+  cryptocurrency:
+    label: 'Cryptomonnaie'
