@@ -37,21 +37,21 @@ class InsideShoppingCart
 
     #[ORM\Column]
     #[Assert\NotBlank(
-        message : '{{ label }} ne peut pas être vide.'
+        message : 'La quantité ne peut pas être vide.'
     )]
     private ?int $quantity = null;
 
     #[ORM\ManyToOne(inversedBy: 'insideShoppingCarts')]
     #[ORM\JoinColumn(nullable: false)]
     #[Assert\NotBlank(
-        message : '{{ label }} ne peut pas être vide.'
+        message : 'Le produit ne peut pas être vide.'
     )]
     private ?Product $product = null;
 
     #[ORM\ManyToOne(inversedBy: 'insideShoppingCarts')]
     #[ORM\JoinColumn(nullable: false)]
     #[Assert\NotBlank(
-        message : '{{ label }} ne peut pas être vide.'
+        message : 'Le panier ne peut pas être vide.'
     )]
     private ?ShoppingCart $shoppingCart = null;
 

@@ -37,15 +37,15 @@ class Category
     #[Assert\Length(
         min: 2,
         max: 80,
-        minMessage: '{{label}} doit faire plus de {{limit}} caractères.',
-        maxMessage: '{{label}} doit faire moins de {{limit}} caractères.',
+        minMessage: 'Le nom de la catégorie doit faire plus de {{ limit }} caractères.',
+        maxMessage: 'Le nom de la catégorie doit faire moins de {{ limit }} caractères.',
     )]
     private ?string $category = null;
 
     #[ORM\ManyToOne(targetEntity: self::class)]
     #[Assert\Length(
         max: 80,
-        maxMessage: '{{label}} doit faire moins de {{limit}} caractères.',
+        maxMessage: 'Le nom de la sous-catégorie doit faire moins de {{ limit }} caractères.',
     )]
     private ?self $subCategory = null;
 

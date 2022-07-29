@@ -72,14 +72,14 @@ class Address
     #[ORM\Column(length: 255, nullable: true)]
     #[Assert\Length(
         max: 255,
-        maxMessage: 'doit faire moins de {{ limit }} caractères.',
+        maxMessage: 'La ligne 2 doit faire moins de {{ limit }} caractères.',
     )]
     private ?string $row2 = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     #[Assert\Length(
         max: 255,
-        maxMessage: 'doit faire moins de {{ limit }} caractères.',
+        maxMessage: 'La ligne 3 doit faire moins de {{ limit }} caractères.',
     )]
     private ?string $row3 = null;
 

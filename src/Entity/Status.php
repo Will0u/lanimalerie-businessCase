@@ -37,8 +37,8 @@ class Status
     #[Assert\Length(
         min: 2,
         max: 50,
-        minMessage: '{{label}} doit faire plus de {{limit}} caractères.',
-        maxMessage: '{{label}} doit faire moins de {{limit}} caractères.',
+        minMessage: 'Le nom du status doit faire plus de {{ limit }} caractères.',
+        maxMessage: 'Le nom du status doit faire moins de {{ limit }} caractères.',
     )]
     private ?string $label = null;
 

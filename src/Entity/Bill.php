@@ -34,21 +34,21 @@ class Bill
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     #[Assert\NotBlank(
-        message : '{{ label }} ne peut pas être vide.'
+        message : 'La date de paiement ne peut pas être vide.'
     )]
     #[Assert\LessThan('now')]
     private ?\DateTimeInterface $paidAt = null;
 
     #[ORM\Column(type: Types::TEXT)]
     #[Assert\NotBlank(
-        message : '{{ label }} ne peut pas être vide.'
+        message : 'La copie de la facture ne peut pas être vide.'
     )]
     private ?string $billCopy = null;
 
     #[ORM\ManyToOne(inversedBy: 'bills')]
     #[ORM\JoinColumn(nullable: false)]
     #[Assert\NotBlank(
-        message : '{{ label }} ne peut pas être vide.'
+        message : 'Le panier ne peut pas être vide.'
     )]
     private ?ShoppingCart $shoppingCart = null;
 

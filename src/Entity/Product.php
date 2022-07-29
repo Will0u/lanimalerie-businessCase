@@ -42,8 +42,8 @@ class Product
     #[Assert\Length(
         min: 2,
         max: 255,
-        minMessage: '{{label}} doit faire plus de {{limit}} caractères.',
-        maxMessage: '{{label}} doit faire moins de {{limit}} caractères.',
+        minMessage: 'L\'URL de l\'image doit faire plus de {{ limit }} caractères.',
+        maxMessage: 'L\'URL de l\'image doit faire moins de {{ limit }} caractères.',
     )]
     private ?string $imageUrl = null;
 
@@ -51,8 +51,8 @@ class Product
     #[Assert\Length(
         min: 2,
         max: 80,
-        minMessage: '{{label}} doit faire plus de {{limit}} caractères.',
-        maxMessage: '{{label}} doit faire moins de {{limit}} caractères.',
+        minMessage: 'Le nom du produit doit faire plus de {{ limit }} caractères.',
+        maxMessage: 'Le nom du produit doit faire moins de {{ limit }} caractères.',
     )]
     private ?string $name = null;
 
@@ -68,7 +68,7 @@ class Product
     #[Assert\Range(
         min: 0,
         max: 999999.99,
-        notInRangeMessage: '{{label}} doit être entre {{min}} et {{max}}€.',
+        notInRangeMessage: 'Le prix HT doit être entre {{ min }} et {{ max }} €.',
     )]
     private ?string $priceHt = null;
 
@@ -76,34 +76,34 @@ class Product
     #[Assert\Range(
         min: 0,
         max: 1,
-        notInRangeMessage: '{{label}} doit être entre {{min}} et {{max}} de tva.',
+        notInRangeMessage: 'La TVA doit être entre {{ min }} et {{ max }} de tva.',
     )]
     private ?string $tva = null;
 
     #[ORM\Column(type: Types::TEXT)]
     #[Assert\Length(
         max: 500,
-        maxMessage: '{{label}} doit faire moins de {{limit}} caractères.',
+        maxMessage: 'La description doit faire moins de {{ limit }} caractères.',
     )]
     private ?string $description = null;
 
     #[ORM\Column]
     #[Assert\NotBlank(
-        message : '{{ label }} ne peut pas être vide.'
+        message : 'La quantité ne peut pas être vide.'
     )]
     private ?int $quantity = null;
 
     #[ORM\ManyToOne(inversedBy: 'products')]
     #[ORM\JoinColumn(nullable: false)]
     #[Assert\NotBlank(
-        message : '{{ label }} ne peut pas être vide.'
+        message : 'La marque ne peut pas être vide.'
     )]
     private ?Brand $brand = null;
 
     #[ORM\ManyToOne(inversedBy: 'products')]
     #[ORM\JoinColumn(nullable: false)]
     #[Assert\NotBlank(
-        message : '{{ label }} ne peut pas être vide.'
+        message : 'La catégorie ne peut pas être vide.'
     )]
     private ?Category $category = null;
 

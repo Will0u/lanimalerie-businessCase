@@ -37,8 +37,8 @@ class Payment
     #[Assert\Length(
         min: 2,
         max: 50,
-        minMessage: '{{label}} doit faire plus de {{limit}} caractères.',
-        maxMessage: '{{label}} doit faire moins de {{limit}} caractères.',
+        minMessage: 'Le nom du paiement doit faire plus de {{ limit }} caractères.',
+        maxMessage: 'Le nom du paiement doit faire moins de {{ limit }} caractères.',
     )]
     private ?string $label = null;
 

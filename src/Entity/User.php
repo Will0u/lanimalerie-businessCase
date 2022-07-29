@@ -40,11 +40,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Assert\Length(
         min: 2,
         max: 180,
-        minMessage: '{{label}} doit faire plus de {{limit}} caractères.',
-        maxMessage: '{{label}} doit faire moins de {{limit}} caractères.',
+        minMessage: 'L\'adresse email doit faire plus de {{ limit }} caractères.',
+        maxMessage: 'L\'adresse email doit faire moins de {{ limit }} caractères.',
     )]
     #[Assert\Email(
-        message: '{{label}} : {{ value }} invalide.',
+        message: 'L\'adresse email : "{{ value }}" est invalide.',
     )]
     private ?string $email = null;
 
@@ -58,14 +58,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Assert\Length(
         min: 4,
         max: 30,
-        minMessage: 'Le mot de passe doit faire plus de {{limit}} caractères.',
-        maxMessage: 'Le mot de passe doit faire moins de {{limit}} caractères.',
+        minMessage: 'Le mot de passe doit faire plus de {{ limit }} caractères.',
+        maxMessage: 'Le mot de passe doit faire moins de {{ limit }} caractères.',
     )]
     private ?string $password = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     #[Assert\NotBlank(
-        message : '{{ label }} ne peut pas être vide.'
+        message : 'La date de naissance ne peut pas être vide.'
     )]
     #[Assert\LessThan(
         '-18 years' , 
@@ -75,7 +75,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     #[Assert\NotBlank(
-        message : '{{ label }} ne peut pas être vide.'
+        message : 'La date de création ne peut pas être vide.'
     )]
     #[Assert\LessThan('now')]
     private ?\DateTimeInterface $createdAt = null;
@@ -84,8 +84,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Assert\Length(
         min: 2,
         max: 80,
-        minMessage: '{{label}} doit faire plus de {{limit}} caractères.',
-        maxMessage: '{{label}} doit faire moins de {{limit}} caractères.',
+        minMessage: 'Le prénom doit faire plus de {{ limit }} caractères.',
+        maxMessage: 'Le prénom doit faire moins de {{ limit }} caractères.',
     )]
     private ?string $firstName = null;
 
@@ -93,8 +93,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Assert\Length(
         min: 2,
         max: 80,
-        minMessage: '{{label}} doit faire plus de {{limit}} caractères.',
-        maxMessage: '{{label}} doit faire moins de {{limit}} caractères.',
+        minMessage: 'Le nom de famille doit faire plus de {{ limit }} caractères.',
+        maxMessage: 'Le nom de famille doit faire moins de {{ limit }} caractères.',
     )]
     private ?string $lastName = null;
 
@@ -107,6 +107,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\ManyToMany(targetEntity: Address::class, inversedBy: 'users')]
     private Collection $address;
+
+    #[ORM\Column(length: 18, unique: true )]
+    #[Assert\Length(
+        min: 2,
+        max: 18,
+        minMessage: 'Votre pseudo doit faire plus de {{ limit }} caractères.',
+        maxMessage: 'Votre pseudo doit faire moins de {{ limit }} caractères.',
+    )]
+    private ?string $username = null;
 
 
     public function __construct()
@@ -309,6 +318,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function removeAddress(Address $address): self
     {
         $this->address->removeElement($address);
+
+        return $this;
+    }
+
+    public function getUsername(): ?string
+    {
+        return $this->username;
+    }
+
+    public function setUsername(string $username): self
+    {
+        $this->username = $username;
 
         return $this;
     }

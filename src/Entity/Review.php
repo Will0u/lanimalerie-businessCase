@@ -39,20 +39,20 @@ class Review
     #[Assert\Range(
         min: 0,
         max: 5,
-        notInRangeMessage: '{{label}} doit être entre {{min}} et {{max}}.',
+        notInRangeMessage: 'La note doit être entre {{ min }} et {{ max }}.',
     )]
     private ?int $mark = null;
 
     #[ORM\Column(type: Types::TEXT)]
     #[Assert\Length(
         max: 500,
-        maxMessage: '{{label}} doit faire moins de {{limit}} caractères.',
+        maxMessage: 'Le commentaire doit faire moins de {{ limit }} caractères.',
     )]
     private ?string $comment = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     #[Assert\NotBlank(
-        message : '{{ label }} ne peut pas être vide.'
+        message : 'La date ne peut pas être vide.'
     )]
     #[Assert\LessThan('now')]
     private ?\DateTimeInterface $wroteAt = null;

@@ -40,7 +40,7 @@ class ShoppingCart
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     #[Assert\NotBlank(
-        message : '{{ label }} ne peut pas être vide.'
+        message : 'La date de création ne peut pas être vide.'
     )]
     #[Assert\LessThan('now')]
     private ?\DateTimeInterface $createdAt = null;
@@ -48,7 +48,7 @@ class ShoppingCart
     #[ORM\ManyToOne(inversedBy: 'shoppingCart')]
     #[ORM\JoinColumn(nullable: false)]
     #[Assert\NotBlank(
-        message : '{{ label }} ne peut pas être vide.'
+        message : 'L\'id de l\'utlisateur ne peut pas être vide.'
     )]
     private ?User $user = null;
 
@@ -56,14 +56,14 @@ class ShoppingCart
     #[ORM\ManyToOne(inversedBy: 'shoppingCarts')]
     #[ORM\JoinColumn(nullable: false)]
     #[Assert\NotBlank(
-        message : '{{ label }} ne peut pas être vide.'
+        message : 'L\'id du status ne peut pas être vide.'
     )]
     private ?Status $status = null;
 
     #[ORM\ManyToOne(inversedBy: 'shoppingCarts')]
     #[ORM\JoinColumn(nullable: false)]
     #[Assert\NotBlank(
-        message : '{{ label }} ne peut pas être vide.'
+        message : 'L\'id du paiement ne peut pas être vide.'
     )]
     private ?Payment $payment = null;
 
