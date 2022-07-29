@@ -12,7 +12,6 @@ use App\Entity\User;
 use App\Repository\UserRepository;
 
 use Symfony\Component\Serializer\Encoder\EncoderInterface;
-use Symfony\Component\Serializer\Encoder\DecoderInterface;
 
 
 
@@ -26,7 +25,6 @@ class TestSerializerController extends AbstractController
     public function index(
         SerializerInterface $serializer, 
         EncoderInterface $encoder ,
-        DecoderInterface $decoder
          ): Response
     {
 
@@ -34,11 +32,7 @@ class TestSerializerController extends AbstractController
         $jsonUser = $serializer->serialize($user , 'json');
         $encodedJsonUser = $encoder->encode($jsonUser , 'json');
         dump($encodedJsonUser);
-
-        $newUser = new User();
         
-
-
         return $this->render('test_serializer/index.html.twig', [
             'controller_name' => 'TestSerializerController'
         ]);
