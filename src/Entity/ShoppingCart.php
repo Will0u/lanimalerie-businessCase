@@ -12,7 +12,10 @@ use ApiPlatform\Core\Annotation\ApiResource;
 
 #[ORM\Entity(repositoryClass: ShoppingCartRepository::class)]
 #[ApiResource(
-    attributes: ["security" => "is_granted('ROLE_ADMIN')"],
+    attributes: [
+        "security" => "is_granted('ROLE_ADMIN')",
+        "security_message" => "Accès refusé."
+    ],
     collectionOperations: [
         "get" => [
             "security" => "is_granted('ROLE_STATS')"
