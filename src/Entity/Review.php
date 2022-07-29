@@ -18,14 +18,14 @@ use ApiPlatform\Core\Annotation\ApiResource;
         "security_message" => "Accès refusé."
     ],
     collectionOperations: [
-        "get",
-        "post",
+        "get"=> [
+            "security" => "is_granted('ROLE_STATS')"
+        ],
     ],
     itemOperations: [
-        "get",
-        "put",
-        "delete",
-        "patch"
+        "get"=> [
+            "security" => "is_granted('ROLE_STATS')"
+        ],
     ],
 )]
 class Review

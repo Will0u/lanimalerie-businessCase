@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: CategoryRepository::class)]
 #[ApiResource(
@@ -17,13 +18,9 @@ use ApiPlatform\Core\Annotation\ApiResource;
     ],
     collectionOperations: [
         "get",
-        "post",
     ],
     itemOperations: [
         "get",
-        "put",
-        "delete",
-        "patch"
     ],
 )]
 class Category
@@ -40,6 +37,7 @@ class Category
         minMessage: 'Le nom de la catégorie doit faire plus de {{ limit }} caractères.',
         maxMessage: 'Le nom de la catégorie doit faire moins de {{ limit }} caractères.',
     )]
+    #[Groups(["bill" , "insideCart" , "cart"])]
     private ?string $category = null;
 
     #[ORM\ManyToOne(targetEntity: self::class)]
@@ -47,6 +45,7 @@ class Category
         max: 80,
         maxMessage: 'Le nom de la sous-catégorie doit faire moins de {{ limit }} caractères.',
     )]
+    #[Groups(["bill" , "insideCart" , "cart"])]
     private ?self $subCategory = null;
 
     #[ORM\OneToMany(mappedBy: 'category', targetEntity: Product::class)]

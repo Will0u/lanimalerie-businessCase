@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: BrandRepository::class)]
 #[ApiResource(
@@ -16,14 +17,9 @@ use ApiPlatform\Core\Annotation\ApiResource;
         "security_message" => "Accès refusé."
     ],
     collectionOperations: [
-        "get",
-        "post",
     ],
     itemOperations: [
         "get",
-        "put",
-        "delete",
-        "patch"
     ],
 )]
 class Brand
@@ -40,6 +36,7 @@ class Brand
         minMessage: 'Le nom de la marque doit faire plus de {{ limit }} caractères.',
         maxMessage: 'Le nom de la marque doit faire moins de {{ limit }} caractères.',
     )]
+    #[Groups(["bill" , "insideCart" , "cart"])]
     private ?string $label = null;
 
     #[ORM\OneToMany(mappedBy: 'brand', targetEntity: Product::class)]

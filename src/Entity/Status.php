@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: StatusRepository::class)]
 #[ApiResource(
@@ -16,14 +17,9 @@ use ApiPlatform\Core\Annotation\ApiResource;
         "security_message" => "Accès refusé."
     ],
     collectionOperations: [
-        "get",
-        "post",
     ],
     itemOperations: [
         "get",
-        "put",
-        "delete",
-        "patch"
     ],
 )]
 class Status
@@ -40,6 +36,7 @@ class Status
         minMessage: 'Le nom du status doit faire plus de {{ limit }} caractères.',
         maxMessage: 'Le nom du status doit faire moins de {{ limit }} caractères.',
     )]
+    #[Groups(['bill' , 'cart'])]
     private ?string $label = null;
 
     #[ORM\OneToMany(mappedBy: 'status', targetEntity: ShoppingCart::class)]

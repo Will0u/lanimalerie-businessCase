@@ -8,6 +8,8 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\Serializer\Annotation\Groups;
+
 
 #[ORM\Entity(repositoryClass: AddressRepository::class)]
 #[ApiResource(
@@ -16,14 +18,9 @@ use ApiPlatform\Core\Annotation\ApiResource;
         "security_message" => "Accès refusé."
     ],
     collectionOperations: [
-        "get",
-        "post",
     ],
     itemOperations: [
-        "get",
-        "put",
-        "delete",
-        "patch"
+        'get'
     ],
 )]
 class Address
@@ -40,6 +37,7 @@ class Address
         minMessage: 'Le code postal doit faire plus de {{ limit }} caractères.',
         maxMessage: 'Le code postal doit faire moins de {{ limit }} caractères.',
     )]
+    #[Groups("bill")]
     private ?string $zipCode = null;
 
     #[ORM\Column(length: 80)]
@@ -49,6 +47,7 @@ class Address
         minMessage: 'Le nom du pays doit faire plus de {{ limit }} caractères.',
         maxMessage: 'Le nom du pays doit faire moins de {{ limit }} caractères.',
     )]
+    #[Groups("bill")]
     private ?string $country = null;
 
     #[ORM\Column(length: 80)]
@@ -58,6 +57,7 @@ class Address
         minMessage: 'Le nom de la ville doit faire plus de {{ limit }} caractères.',
         maxMessage: 'Le nom de la ville doit faire moins de {{ limit }} caractères.',
     )]
+    #[Groups("bill")]
     private ?string $city = null;
 
     #[ORM\Column(length: 255)]
@@ -67,6 +67,7 @@ class Address
         minMessage: 'L\'adresse doit faire plus de {{ limit }} caractères.',
         maxMessage: 'L\'adresse doit faire moins de {{ limit }} caractères.',
     )]
+    #[Groups("bill")]
     private ?string $row1 = null;
 
     #[ORM\Column(length: 255, nullable: true)]
@@ -74,6 +75,7 @@ class Address
         max: 255,
         maxMessage: 'La ligne 2 doit faire moins de {{ limit }} caractères.',
     )]
+    #[Groups("bill")]
     private ?string $row2 = null;
 
     #[ORM\Column(length: 255, nullable: true)]
@@ -81,6 +83,7 @@ class Address
         max: 255,
         maxMessage: 'La ligne 3 doit faire moins de {{ limit }} caractères.',
     )]
+    #[Groups("bill")]
     private ?string $row3 = null;
 
     #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'address')]

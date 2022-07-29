@@ -9,6 +9,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: ProductRepository::class)]
 #[ApiResource(
@@ -20,15 +21,11 @@ use ApiPlatform\Core\Annotation\ApiResource;
         "get" => [
             "security" => "is_granted('ROLE_STATS')"
         ],
-        "post"
     ],
     itemOperations: [
         "get" => [
             "security" => "is_granted('ROLE_STATS')"
         ],
-        "put",
-        "delete",
-        "patch"
     ],
 )]
 class Product
@@ -54,6 +51,7 @@ class Product
         minMessage: 'Le nom du produit doit faire plus de {{ limit }} caractères.',
         maxMessage: 'Le nom du produit doit faire moins de {{ limit }} caractères.',
     )]
+    #[Groups(["bill" , "insideCart", "cart"])]
     private ?string $name = null;
 
     #[ORM\Column]
@@ -70,6 +68,7 @@ class Product
         max: 999999.99,
         notInRangeMessage: 'Le prix HT doit être entre {{ min }} et {{ max }} €.',
     )]
+    #[Groups(["bill" , "insideCart", "cart"])]
     private ?string $priceHt = null;
 
     #[ORM\Column(type: Types::DECIMAL, precision: 3, scale: 2)]
@@ -78,6 +77,7 @@ class Product
         max: 1,
         notInRangeMessage: 'La TVA doit être entre {{ min }} et {{ max }} de tva.',
     )]
+    #[Groups(["bill" , "insideCart", "cart"])]
     private ?string $tva = null;
 
     #[ORM\Column(type: Types::TEXT)]
@@ -98,6 +98,7 @@ class Product
     #[Assert\NotBlank(
         message : 'La marque ne peut pas être vide.'
     )]
+    #[Groups(["bill" , "insideCart", "cart"])]
     private ?Brand $brand = null;
 
     #[ORM\ManyToOne(inversedBy: 'products')]
@@ -105,6 +106,7 @@ class Product
     #[Assert\NotBlank(
         message : 'La catégorie ne peut pas être vide.'
     )]
+    #[Groups(["bill" , "insideCart", "cart"])]
     private ?Category $category = null;
 
     #[ORM\OneToMany(mappedBy: 'product', targetEntity: InsideShoppingCart::class)]

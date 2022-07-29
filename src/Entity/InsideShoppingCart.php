@@ -7,8 +7,13 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use ApiPlatform\Core\Annotation\ApiResource;
 
+use Symfony\Component\Serializer\Annotation\Groups;
+
 #[ORM\Entity(repositoryClass: InsideShoppingCartRepository::class)]
 #[ApiResource(
+    normalizationContext : [
+        'groups' => ['insideCart']
+        ] ,
     attributes: [
         "security" => "is_granted('ROLE_ADMIN')",
         "security_message" => "Accès refusé."
@@ -17,15 +22,11 @@ use ApiPlatform\Core\Annotation\ApiResource;
         "get" => [
             "security" => "is_granted('ROLE_STATS')"
         ],
-        "post"
     ],
     itemOperations: [
         "get" => [
             "security" => "is_granted('ROLE_STATS')"
         ],
-        "put",
-        "delete",
-        "patch"
     ],
 )]
 class InsideShoppingCart
@@ -39,6 +40,7 @@ class InsideShoppingCart
     #[Assert\NotBlank(
         message : 'La quantité ne peut pas être vide.'
     )]
+    #[Groups(["bill" , "insideCart"])]
     private ?int $quantity = null;
 
     #[ORM\ManyToOne(inversedBy: 'insideShoppingCarts')]
@@ -46,6 +48,7 @@ class InsideShoppingCart
     #[Assert\NotBlank(
         message : 'Le produit ne peut pas être vide.'
     )]
+    #[Groups(["bill" , "insideCart", "cart"])]
     private ?Product $product = null;
 
     #[ORM\ManyToOne(inversedBy: 'insideShoppingCarts')]

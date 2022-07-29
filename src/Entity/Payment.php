@@ -9,6 +9,8 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use ApiPlatform\Core\Annotation\ApiResource;
 
+use Symfony\Component\Serializer\Annotation\Groups;
+
 #[ORM\Entity(repositoryClass: PaymentRepository::class)]
 #[ApiResource(
     attributes: [
@@ -16,14 +18,9 @@ use ApiPlatform\Core\Annotation\ApiResource;
         "security_message" => "Accès refusé."
     ],
     collectionOperations: [
-        "get",
-        "post",
     ],
     itemOperations: [
         "get",
-        "put",
-        "delete",
-        "patch"
     ],
 )]
 class Payment
@@ -40,6 +37,7 @@ class Payment
         minMessage: 'Le nom du paiement doit faire plus de {{ limit }} caractères.',
         maxMessage: 'Le nom du paiement doit faire moins de {{ limit }} caractères.',
     )]
+    #[Groups(['bill' , 'cart'])]
     private ?string $label = null;
 
     #[ORM\OneToMany(mappedBy: 'payment', targetEntity: ShoppingCart::class)]

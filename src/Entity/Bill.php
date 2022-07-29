@@ -7,22 +7,26 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: BillRepository::class)]
 #[ApiResource(
+    normalizationContext : [
+       'groups' => ['bill']
+       ] ,
     attributes: [
         "security" => "is_granted('ROLE_ADMIN')",
-        "security_message" => "Accès refusé."
+        "security_message" => "Accès refusé.",
     ],
     collectionOperations: [
-        "get",
-        "post",
+        "get" => [
+            "security" => "is_granted('ROLE_STATS')",
+        ],
     ],
     itemOperations: [
-        "get",
-        "put",
-        "delete",
-        "patch"
+        "get" => [
+            "security" => "is_granted('ROLE_STATS')"
+        ],
     ],
 )]
 class Bill
@@ -37,12 +41,14 @@ class Bill
         message : 'La date de paiement ne peut pas être vide.'
     )]
     #[Assert\LessThan('now')]
+    #[Groups("bill")]
     private ?\DateTimeInterface $paidAt = null;
 
     #[ORM\Column(type: Types::TEXT)]
     #[Assert\NotBlank(
         message : 'La copie de la facture ne peut pas être vide.'
     )]
+    #[Groups("bill")]
     private ?string $billCopy = null;
 
     #[ORM\ManyToOne(inversedBy: 'bills')]
@@ -50,6 +56,7 @@ class Bill
     #[Assert\NotBlank(
         message : 'Le panier ne peut pas être vide.'
     )]
+    #[Groups("bill")]
     private ?ShoppingCart $shoppingCart = null;
 
     public function getId(): ?int

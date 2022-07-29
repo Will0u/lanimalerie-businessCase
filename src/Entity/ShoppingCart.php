@@ -9,9 +9,13 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: ShoppingCartRepository::class)]
 #[ApiResource(
+    normalizationContext : [
+        'groups' => ['cart']
+        ] ,
     attributes: [
         "security" => "is_granted('ROLE_ADMIN')",
         "security_message" => "Accès refusé."
@@ -20,15 +24,11 @@ use ApiPlatform\Core\Annotation\ApiResource;
         "get" => [
             "security" => "is_granted('ROLE_STATS')"
         ],
-        "post"
     ],
     itemOperations: [
         "get" => [
             "security" => "is_granted('ROLE_STATS')"
         ],
-        "put",
-        "delete",
-        "patch"
     ],
 )]
 class ShoppingCart
@@ -43,6 +43,7 @@ class ShoppingCart
         message : 'La date de création ne peut pas être vide.'
     )]
     #[Assert\LessThan('now')]
+    #[Groups(['bill' , 'cart'])]
     private ?\DateTimeInterface $createdAt = null;
 
     #[ORM\ManyToOne(inversedBy: 'shoppingCart')]
@@ -50,6 +51,7 @@ class ShoppingCart
     #[Assert\NotBlank(
         message : 'L\'id de l\'utlisateur ne peut pas être vide.'
     )]
+    #[Groups(['bill' , 'cart'])]
     private ?User $user = null;
 
 
@@ -58,6 +60,7 @@ class ShoppingCart
     #[Assert\NotBlank(
         message : 'L\'id du status ne peut pas être vide.'
     )]
+    #[Groups(['bill' , 'cart'])]
     private ?Status $status = null;
 
     #[ORM\ManyToOne(inversedBy: 'shoppingCarts')]
@@ -65,9 +68,11 @@ class ShoppingCart
     #[Assert\NotBlank(
         message : 'L\'id du paiement ne peut pas être vide.'
     )]
+    #[Groups(['bill' , 'cart'])]
     private ?Payment $payment = null;
 
     #[ORM\OneToMany(mappedBy: 'shoppingCart', targetEntity: InsideShoppingCart::class)]
+    #[Groups(['bill' , 'cart'])]
     private Collection $insideShoppingCarts;
 
     #[ORM\OneToMany(mappedBy: 'shoppingCart', targetEntity: Bill::class)]

@@ -11,6 +11,7 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ApiResource(
@@ -19,14 +20,9 @@ use ApiPlatform\Core\Annotation\ApiResource;
         "security_message" => "Accès refusé."
     ],
     collectionOperations: [
-        "get",
-        "post",
     ],
     itemOperations: [
         "get",
-        "put",
-        "delete",
-        "patch"
     ],
 )]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
@@ -87,6 +83,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         minMessage: 'Le prénom doit faire plus de {{ limit }} caractères.',
         maxMessage: 'Le prénom doit faire moins de {{ limit }} caractères.',
     )]
+    #[Groups("bill")]
     private ?string $firstName = null;
 
     #[ORM\Column(length: 80)]
@@ -96,6 +93,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         minMessage: 'Le nom de famille doit faire plus de {{ limit }} caractères.',
         maxMessage: 'Le nom de famille doit faire moins de {{ limit }} caractères.',
     )]
+    #[Groups("bill")]
     private ?string $lastName = null;
 
 
@@ -106,6 +104,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private Collection $shoppingCart;
 
     #[ORM\ManyToMany(targetEntity: Address::class, inversedBy: 'users')]
+    #[Groups("bill")]
     private Collection $address;
 
     #[ORM\Column(length: 18, unique: true )]
