@@ -63,4 +63,47 @@ class InsideShoppingCartRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
+
+    // ________________________________________________API REQUESTS
+    // ____________________________________________________________
+
+    // ____________________________________________________________
+    // ____________________________________________________________
+    public function getMostPickedProduct(int $length=5 , string $sort='DESC')
+    {
+        return $this->createQueryBuilder('insideCart')
+            ->select(
+                    'product.name',
+                    'product.id',
+                    'SUM(insideCart.quantity) as total'
+                )
+            ->join('insideCart.product' , 'product')
+            ->orderBy('total' , $sort)
+            ->groupBy('insideCart.product')
+            ->setMaxResults($length)
+            ->getQuery()
+            ->getResult();
+    }
+
+
+    public function getMostSoldProducts(int $length=5 , string $sort='DESC')
+    {
+        return $this->createQueryBuilder('insideCart')
+            ->select(
+                    'product.name',
+                    'product.id',
+                    'SUM(insideCart.quantity) as total'
+                )
+            ->join('insideCart.product' , 'product')
+            ->join('insideCart.shoppingCart' , 'cart')
+            ->join('cart.status' , 'status')
+            ->orderBy('total' , $sort)
+            ->groupBy('insideCart.product')
+            ->where('status.id = 1')
+            ->setMaxResults($length)
+            ->getQuery()
+            ->getResult();
+    }
+
 }

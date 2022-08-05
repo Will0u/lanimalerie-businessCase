@@ -6,7 +6,8 @@ use App\Repository\InsideShoppingCartRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use ApiPlatform\Core\Annotation\ApiResource;
-
+use App\Controller\ApiPlatform\InsideCartStats\LessPickedProductsController;
+use App\Controller\ApiPlatform\InsideCartStats\MostPickedProductsController;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: InsideShoppingCartRepository::class)]
@@ -22,6 +23,19 @@ use Symfony\Component\Serializer\Annotation\Groups;
         "get" => [
             "security" => "is_granted('ROLE_STATS')"
         ],
+        'mostPickedProducts' => [
+            "security" => "is_granted('ROLE_STATS')",
+            'method' => 'GET',
+            'path' => '/inside_shopping_carts/most_picked_products',
+            'controller' => MostPickedProductsController::class
+        ],
+
+        'lessPickedProducts' => [
+            "security" => "is_granted('ROLE_STATS')",
+            'method' => 'GET',
+            'path' => '/inside_shopping_carts/less_picked_products',
+            'controller' => LessPickedProductsController::class
+        ]
     ],
     itemOperations: [
         "get" => [

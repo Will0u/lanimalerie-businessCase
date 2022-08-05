@@ -7,6 +7,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use ApiPlatform\Core\Annotation\ApiResource;
+use App\Controller\ApiPlatform\BillStats\TotalMoneyController;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: BillRepository::class)]
@@ -21,6 +22,13 @@ use Symfony\Component\Serializer\Annotation\Groups;
     collectionOperations: [
         "get" => [
             "security" => "is_granted('ROLE_STATS')",
+        ],
+
+        'totalMoney' => [
+            "security" => "is_granted('ROLE_STATS')",
+            'method' => 'GET',
+            'path' => '/bill/stats',
+            'controller' => TotalMoneyController::class
         ],
     ],
     itemOperations: [

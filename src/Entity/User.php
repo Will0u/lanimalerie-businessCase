@@ -11,6 +11,7 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use ApiPlatform\Core\Annotation\ApiResource;
+use App\Controller\ApiPlatform\UserStats\TotalUsersController;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
@@ -20,6 +21,12 @@ use Symfony\Component\Serializer\Annotation\Groups;
         "security_message" => "Accès refusé."
     ],
     collectionOperations: [
+        'stats' => [
+            "security" => "is_granted('ROLE_STATS')",
+            'method' => 'GET',
+            'path' => '/users/stats',
+            'controller' => TotalUsersController::class
+        ]
     ],
     itemOperations: [
         "get",

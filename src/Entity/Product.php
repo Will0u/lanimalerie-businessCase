@@ -9,6 +9,8 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use ApiPlatform\Core\Annotation\ApiResource;
+use App\Controller\ApiPlatform\ProductStats\LessSoldController;
+use App\Controller\ApiPlatform\ProductStats\MostSoldController;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: ProductRepository::class)]
@@ -21,6 +23,20 @@ use Symfony\Component\Serializer\Annotation\Groups;
         "get" => [
             "security" => "is_granted('ROLE_STATS')"
         ],
+
+        'mostSoldProducts' => [
+            "security" => "is_granted('ROLE_STATS')",
+            'method' => 'GET',
+            'path' => '/products/most_sold_products',
+            'controller' => MostSoldController::class
+        ],
+
+        'lessSoldProducts' => [
+            "security" => "is_granted('ROLE_STATS')",
+            'method' => 'GET',
+            'path' => '/products/less_sold_products',
+            'controller' => LessSoldController::class
+        ]
     ],
     itemOperations: [
         "get" => [

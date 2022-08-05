@@ -63,4 +63,93 @@ class ShoppingCartRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
+
+    // ________________________________________________API REQUESTS
+    // ____________________________________________________________
+
+    // carts collection____________________________________________
+    // ____________________________________________________________
+    public function getAllCarts()
+    {
+        return $this->createQueryBuilder('stats')
+            ->select(
+                    'count(stats) as totalCarts'
+                )
+            ->join('stats.status' , 'status')
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function getValidatesCart()
+    {
+        return $this->createQueryBuilder('stats')
+            ->select(
+                    'count(stats) as totalValidatedCarts'
+                )
+            ->join('stats.status' , 'status')
+            ->where('status.id = 1')
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function getFailedCarts()
+    {
+        return $this->createQueryBuilder('stats')
+            ->select(
+                    'count(stats) as totalFailedCarts'
+                )
+            ->join('stats.status' , 'status')
+            ->where('status.id = 2')
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function getStandByValidationCarts()
+    {
+        return $this->createQueryBuilder('stats')
+            ->select(
+                    'count(stats) as totalValidationStandByCarts'
+                )
+            ->join('stats.status' , 'status')
+            ->where('status.id = 3')
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function getAbortedCarts()
+    {
+        return $this->createQueryBuilder('stats')
+            ->select(
+                    'count(stats) as totalAbortedCarts'
+                )
+            ->join('stats.status' , 'status')
+            ->where('status.id = 4')
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function getStandByPaymentCarts()
+    {
+        return $this->createQueryBuilder('stats')
+            ->select(
+                    'count(stats) as totalPaymentStandByCarts'
+                )
+            ->join('stats.status' , 'status')
+            ->where('status.id = 5')
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function getAverageMoney()
+    {
+        return $this->createQueryBuilder('cart')
+            ->select(
+                    'AVG(product.priceHt * insideShoppingCarts.quantity) as averageMoney'
+                )
+            ->join('cart.insideShoppingCarts' , 'insideShoppingCarts')
+            ->join('insideShoppingCarts.product' , 'product')
+            ->getQuery()
+            ->getResult();
+    }
 }

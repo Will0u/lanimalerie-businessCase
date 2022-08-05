@@ -63,4 +63,26 @@ class BillRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
+
+    // ________________________________________________API REQUESTS
+    // ____________________________________________________________
+
+    // ____________________________________________________________
+    // ____________________________________________________________
+    public function getTotalMoney()
+    {
+        return $this->createQueryBuilder('bill')
+            ->select(
+                    'SUM(product.priceHt * insideShoppingCarts.quantity) as total'
+                )
+            ->join('bill.shoppingCart' , 'shoppingCart')
+            ->join('shoppingCart.insideShoppingCarts' , 'insideShoppingCarts')
+            ->join('insideShoppingCarts.product' , 'product')
+            ->where('shoppingCart.status = 1')
+            ->getQuery()
+            ->getResult();
+    }
+
+
 }

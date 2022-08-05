@@ -97,8 +97,3 @@ Once the keys generated, you can start the project by using the `symfony serve` 
 2 ways to have an access token :
 * In **localhost:8000/api/docs** go to the **Token** section, then click on **try it out** and write valid email and password.
 * In an API testing tool (as Postman), do a **POST** request on **localhost:8000/authentication_token** with valid email and password.
-
-
-
-
-

@@ -9,6 +9,8 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use ApiPlatform\Core\Annotation\ApiResource;
+use App\Controller\ApiPlatform\CartStats\AverageMoneyController;
+use App\Controller\ApiPlatform\CartStats\TotalCartsController;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: ShoppingCartRepository::class)]
@@ -24,6 +26,21 @@ use Symfony\Component\Serializer\Annotation\Groups;
         "get" => [
             "security" => "is_granted('ROLE_STATS')"
         ],
+
+        'stats' => [
+            "security" => "is_granted('ROLE_STATS')",
+            'method' => 'GET',
+            'path' => '/shopping_carts/stats',
+            'controller' => TotalCartsController::class
+        ],
+
+        'average' => [
+            "security" => "is_granted('ROLE_STATS')",
+            'method' => 'GET',
+            'path' => '/shopping_carts/average',
+            'controller' => AverageMoneyController::class
+        ]
+
     ],
     itemOperations: [
         "get" => [

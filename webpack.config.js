@@ -20,8 +20,14 @@ Encore
      * Each entry will result in one JavaScript file (e.g. app.js)
      * and one CSS file (e.g. app.css) if your JavaScript imports CSS.
      */
-    .addEntry('app', './assets/script/script.ts')
-    .addStyleEntry('style', './assets/scss/style.scss')
+    .addEntry('front_script', './assets/front/scripts/main.ts')
+    .addStyleEntry('front_style', './assets/front/styles/main.scss')
+
+    .addEntry('back_script', './assets/back/scripts/main.ts')
+    .addStyleEntry('back_style', './assets/back/styles/main.scss')
+
+    .addEntry('shared_script', './assets/shared/scripts/main.ts')
+    .addStyleEntry('shared_style', './assets/shared/styles/main.scss')
 
 
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
